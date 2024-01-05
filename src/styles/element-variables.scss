@@ -1,0 +1,68 @@
+$g-font-black-color: #333333; // 主文本色, 用于白色背景
+.el-popper {
+  z-index: 7000 !important;
+}
+
+.el-select-dropdown > el-popper {
+  z-index: 10000 !important;
+}
+.el-popper {
+  z-index: 10000 !important;
+}
+
+.el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+.el-select-dropdown {
+  z-index: 7001 !important;
+}
+.el-dialog__header {
+  text-align: left;
+  height: 40px;
+  padding: 0 24px;
+  line-height: 40px;
+  background-color: rgb(242, 242, 246);
+
+  .el-dialog__title {
+    font-size: 14px;
+    color: $g-font-black-color;
+    font-weight: 900;
+  }
+
+  .el-dialog__headerbtn {
+    top: 12px;
+    right: 24px;
+  }
+}
+.el-picker-panel.el-date-picker {
+  z-index: 7001 !important;
+}
+
+.el-select-dropdown__item {
+  text-align: left;
+}
+:global {
+
+  // 输入框 按钮倒角样式2px
+  .el-button,
+  .el-input,
+  .el-tag,
+  .el-input input {
+    border-radius: 2px !important;
+  }
+  .el-select-dropdown,
+  .el-picker-panel {
+    border-radius: 2px !important;
+  }
+
+  //下拉选择框的样式
+  .el-scrollbar__wrap {
+    overflow-x: hidden;
+  }
+  .el-scrollbar__bar.is-horizontal {
+    display: none;
+  }
+  .el-select-dropdown__wrap.el-scrollbar__wrap {
+    margin-bottom: 1px !important;
+  }
+}

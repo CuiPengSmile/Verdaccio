@@ -1,0 +1,20 @@
+@import './size.scss';
+@import './color.scss';
+
+@mixin full {
+  height: 100%;
+  width: 100%;
+}
+
+@mixin oneline {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin center {
+  @include full;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}

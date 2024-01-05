@@ -1,0 +1,14 @@
+$g-transition-duration: 0.15s; // 动画持续时间
+
+.el-table tr {
+  color: #333;
+}
+.el-table th{
+  background-color: #f4f4f4;
+}
+.el-scrollbar {
+  text-align: left;
+}
+.el-select-dropdown.el-popper {
+  z-index: 7001 !important;
+}

@@ -1,0 +1,26 @@
+// fade
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity $g-transition-duration;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+// top-slide-fade
+.top-slide-fade-enter-active,
+.top-slide-fade-leave-active {
+  transition: all $g-transition-duration ease;
+}
+
+.top-slide-fade-enter,
+.top-slide-fade-leave-to {
+  transform: translateY(-100px);
+  opacity: 0;
+}
+
+// flip list
+.flip-list-move {
+  transition: transform 0.5s;
+}
