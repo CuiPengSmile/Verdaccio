@@ -1,4 +1,5 @@
 let _store = null;
+let _router = null;
 
 class Global {
   static setGlobal({ store }) {
@@ -10,6 +11,14 @@ class Global {
 
   static get store() {
     return _store;
+  }
+
+  static set router(router) {
+    _router = router;
+  }
+
+  static get router() {
+    return _router;
   }
 }
 

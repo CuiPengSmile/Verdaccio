@@ -18,9 +18,7 @@ export default {
       return this.leftPanelVisible ? "fa-angle-left" : "fa-angle-right";
     },
   },
-  mounted() {
-    console.warn(this.leftPanelVisible);
-  },
+  mounted() {},
   data() {
     return {};
   },

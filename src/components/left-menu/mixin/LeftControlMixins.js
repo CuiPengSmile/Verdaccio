@@ -1,6 +1,7 @@
 import { createNamespacedHelpers } from "vuex";
+
 const { mapState, mapMutations } = createNamespacedHelpers(
-  "application/left-control"
+  "application/leftControl"
 );
 
 export default class {

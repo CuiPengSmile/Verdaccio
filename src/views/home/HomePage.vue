@@ -14,20 +14,18 @@
 <script>
 import { EnterLeavePanel } from "@xy/ui-panel";
 import LeftControl from "../../components/left-menu/LeftControlIcon.vue";
-// import leftControlMinxins from "../../components/left-menu/mixin/LeftControlMixins";
+import leftControlMinxins from "../../components/left-menu/mixin/LeftControlMixins";
 
 export default {
   components: { LeftControl, EnterLeavePanel },
-  // mixins: [leftControlMinxins.leftControlMixin],
+  mixins: [leftControlMinxins.leftControlMixin],
   data() {
     return {
       list: [],
-      leftPanelVisible: true,
     };
   },
   mounted() {
     this.getDataList();
-    // console.log(this.rankList);
   },
   methods: {
     // 获取数据列表
