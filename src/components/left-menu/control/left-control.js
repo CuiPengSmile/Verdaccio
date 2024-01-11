@@ -6,15 +6,12 @@ export default class {
   static getLeftPanelVisible() {
     return _.get(
       Global.store,
-      "state.application.left-control.leftPanelVisible"
+      "state.application.leftControl.leftPanelVisible"
     );
   }
 
   /** 设置left panel visible */
   static setLeftPanelVisible(visible) {
-    Global.store.commit(
-      "application/left-control/setLeftPanelVisible",
-      visible
-    );
+    Global.store.commit("application/leftControl/setLeftPanelVisible", visible);
   }
 }

@@ -1,0 +1,101 @@
+1.用途 & 说明
+仅在branch节点初次expand事件时获取其直接leaf节点;
+tree仅负责对节点expand行为进行封装, 不对节点的select和check行为负责;
+
+2.prop属性
+getNodesData 为函数类型, 用于返回节点的扁平化数组, 注意 该函数为同步方法, 并且所返回的node数组必须已经基于level进行排序, 推荐使用者在获取node数据时使用loading wrapper覆盖tree区域, 并将获取的数据包装为同步函数getNodesData;
+filter branch节点过滤字符串, 用于过滤node节点;
+lineVisible 标志是否显示垂直层级分隔线, 默认true;
+itemHeight 节点高度, 建议使用[24, 32]区间, 默认32;
+indentWidth 层级缩进宽度, 默认24;
+nodeExpandIcon node expand fontawesome 图标, 默认'far fa-plus-square';
+nodeCollapseIcon node collpase fontawesome 图标, 默认'far fa-minus-square';
+draggable 是否开启drag支持;
+dragEnterDelay 节点作为拖拽终结触发drag enter事件的延迟(ms);
+nodeItemSourceDragCssCls 节点作为拖拽源时的样式class名称, 默认为node-item-source-drag;
+nodeItemTargetDragInnerCssCls 节点作为拖拽终结时, 插入模式为INNER的样式class名称, 默认为node-item-target-drag-inner;
+nodeItemTargetDragBeforeCssCls 节点作为拖拽终结时, 插入模式为BEFORE的样式class名称, 默认为node-item-target-drag-before;
+nodeItemTargetDragAfterCssCls 节点作为拖拽终结时, 插入模式为AFTER的样式class名称, 默认为node-item-target-drag-after;
+dropTargetForbidCheck 可选的是否禁止节点作为拖拽终结的判断方法, 未设置时会使用默认的内置检测方法;
+queryMoveNode 请求move node节点的数据同步方法, 支持异步, 返回false时会终止本次动态操作;
+dataTransferKey drag & drop操作使用event.dataTransfer方法时相关的key;
+innerInsertFirst INNER插入模式时是否将目标插入到指定节点内部的首位, 默认为true;
+showEmptyNodeButton 空节点显示展开按钮图标， 默认false 不显示;
+
+3.内置函数说明(通过tree ref调用)
+scrollUpdate() 当tree scroll行为时内置的调用函数, 用于当数据状态变化时强制刷新界面;
+itemsUpdate() 当tree数据源发生变化(如node节点发生expand/collpase行为等), 用于刷新当前视口所显示的节点列表, 消耗高于scrollUpdate();
+toggleNode(node) 对给定的node执行toggle expand/collpase操作;
+isAncestorsExpand(node) 判断给定的节点其所有祖先节点是否均处于expand状态(对于给定的root节点返回true);
+getAncestors(node) 获取给定节点的所有祖先节点;
+movetoNode(node) 将给定的节点滚动至可视区域, 该函数将返回真实的节点对象;
+locateNode(node) 定位给定节点, 包括展开node节点和move to node结果, 该函数将返回真实的节点对象;
+locateNodeByNodeId(nodeId) 通过给定的nodeId定位节点, 该函数将返回真实的节点对象;
+getParent(node) 获取给定节点的父节点;
+descendantContain(node, target) 检查target节点是否是给定的node节点的后代或本身;
+getTopNodes() 获取所有顶级node节点;
+defaultdropTargetForbidCheck(target) 默认内置的节点是否禁止drop的检测方法, 返回true表示禁止drop, 返回false表示不禁止;
+setDragSourceNode(node) 设置外置拖拽源;
+dynamicRemoveNode(node, { assemble = true } = {}) 动态删除node节点;
+dynamicAddNode(node, target, order, { assemble = true, reserve = false } = {}) 动态添加node节点;
+scrollTop() 滚动至tree顶部;
+
+4.内置属性说明(通过tree ref调用)
+nodesObj 以node节点id为key的object对象, 可用于通过node id快速获取node节点信息(node节点信息中包括层级关联信息, 可进一步访问其所有子节点列表);
+platSortedNodes 所有node节点依据层级关系有序平铺后的节点列表;
+rawNodes 原始node数组(仅保持level排序性), 用于在tree动态操作时作为内存数据源;
+
+5.node节点raw属性说明(getNodesData方法所返回的node数组中, 每项节点必须包含的属性)
+id branch节点编号;
+name branch节点名称;
+level branch节点层级, 顶层level从1开始;
+parentId branch节点的父节点编号(顶层branch可忽略该属性);
+
+6.node节点扩展属性说明
+children node节点所包含的子节点数组;
+isCollapse 节点节点是否为collapse状态, 初始为true;
+recurseChildrenNumber 节点所包含的递归子leaf节点数量, 由组件内部重新算;
+
+7.事件说明
+onNodeToggle(node) 当node节点发生expand/collpase时触发;
+beforeFilterRender(associateNodes, nodesObj, platSortedNodes) 当filter属性变化时树渲染前触发, 注意不要修改上述参数的顺序, 谨慎修改属性;
+    associateNodes 构建过结构关系的node节点数据数组, 按level从小到大排序;
+    nodesObj node数据对象树结构封装对象;
+    platSortedNodes 有序节点数组;
+onNodeDrop(result) 当节点发生drop事件时触发, result表示最终动态操作的结果;
+onScroll() 当组件发生scroll事件时触发;
+
+8.样式控制说明
+若在节点内容中提供checkbox, 则checkbox宽度建议为20px;
+支持通过 #ui-tree-node-line 来控制tree垂直层级分隔线样式;
+支持通过 #ui-tree-node-expand 来控制branch节点 expand/collapse 控制器样式;
+支持通过 .node-item-source-drag, .node-item-target-drag-inner, .node-item-target-drag-before, .node-item-target-drag-after 改写drag & drop 过程中的节点样式;
+:global {
+  #ui-tree-node-line {
+    border-left: 1px solid #ddd;
+  }
+
+  #ui-tree-node-expand {
+    &:hover {
+      color: #388cff;
+    }
+  }
+
+  .node-item-source-drag {
+    background-color: transparent;
+  }
+
+  .node-item-target-drag-inner {
+    background-color: $drop-bg-color;
+  }
+
+  .node-item-target-drag-before {
+    background-color: transparent;
+    background: linear-gradient(0deg, $drop-bg-color, $drop-bg-color 90%, $drop-edge-color 90%, $drop-edge-color);
+  }
+
+  .node-item-target-drag-after {
+    background-color: transparent;
+    background: linear-gradient(0deg, $drop-edge-color, $drop-edge-color 10%, $drop-bg-color 10%, $drop-bg-color);
+  }
+}

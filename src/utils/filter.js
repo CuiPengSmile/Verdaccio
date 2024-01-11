@@ -7,3 +7,9 @@ export const filterStatus = (status) => {
     }
   });
 };
+
+export const normalizeNode = (node) => {
+  node.id = node.nodeCode;
+  node.name = node.nodeName;
+  node.parentId = node.parentCode || "";
+};
